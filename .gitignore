@@ -43,3 +43,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+android/app/google-services.json
+pizza_app/lib/firebase_options.dart
+lib/spam.txt
+lib/data/service/youtube_api_service.dart
+lib/data/service/spotify_api_service.dart
+lib/cloudinary/cloudinary_service.dart
+

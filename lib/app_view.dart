@@ -17,7 +17,7 @@ class MyAppView extends StatelessWidget {
           seedColor: Colors.grey.shade100,
           brightness: Brightness.light,
           primary: Colors.blue,
-          onSurface: Colors.black,
+          // onSurface: Colors.black,
         ),
       ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(

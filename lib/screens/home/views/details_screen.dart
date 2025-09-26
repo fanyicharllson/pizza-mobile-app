@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pizza_app/components/macro.dart';
+import 'package:pizza_repository/pizzza_repository.dart';
 
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({super.key});
+  final Pizza pizza;
+  const DetailsScreen(this.pizza, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +13,7 @@ class DetailsScreen extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.surface),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
             Container(
@@ -27,10 +29,10 @@ class DetailsScreen extends StatelessWidget {
                     blurRadius: 5,
                   ),
                 ],
-                image: DecorationImage(image: AssetImage('assets/6.png')),
+                image: DecorationImage(image: NetworkImage(pizza.picture)),
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -44,7 +46,7 @@ class DetailsScreen extends StatelessWidget {
                 ],
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: [
                     Row(
@@ -53,8 +55,8 @@ class DetailsScreen extends StatelessWidget {
                         Expanded(
                           flex: 2,
                           child: Text(
-                            'Truffle Temptation Extravaganza',
-                            style: TextStyle(
+                            pizza.name,
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -63,12 +65,12 @@ class DetailsScreen extends StatelessWidget {
                         Expanded(
                           flex: 1,
                           child: Align(
-                            alignment: AlignmentGeometry.centerRight,
+                            alignment: Alignment.centerRight,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  '\$12.00',
+                                  "\$${pizza.price - (pizza.price * (pizza.discount) / 100)}",
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -78,12 +80,12 @@ class DetailsScreen extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  '\$15.00',
-                                  style: TextStyle(
+                                  "\$${pizza.price}.00",
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
                                     decoration: TextDecoration.lineThrough,
-                                    color: Colors.grey.shade500,
                                   ),
                                 ),
                               ],
@@ -97,30 +99,30 @@ class DetailsScreen extends StatelessWidget {
                       children: [
                         MyMacroWidget(
                           title: "Calories",
-                          value: 267,
+                          value: pizza.macros.calories,
                           icons: FontAwesomeIcons.fire,
                         ),
-                        SizedBox(width: 5.0),
+                        const SizedBox(width: 10),
                         MyMacroWidget(
                           title: "Protein",
-                          value: 26,
-                          icons: FontAwesomeIcons.drumstickBite,
+                          value: pizza.macros.proteins,
+                          icons: FontAwesomeIcons.dumbbell,
                         ),
-                        SizedBox(width: 5.0),
+                        const SizedBox(width: 10),
                         MyMacroWidget(
                           title: "Fat",
-                          value: 27,
-                          icons: FontAwesomeIcons.bacon,
+                          value: pizza.macros.fat,
+                          icons: FontAwesomeIcons.oilWell,
                         ),
-                        SizedBox(width: 5.0),
+                        const SizedBox(width: 10),
                         MyMacroWidget(
-                          title: "Carbohydrate",
-                          value: 67,
+                          title: "Carbs",
+                          value: pizza.macros.carbs,
                           icons: FontAwesomeIcons.breadSlice,
                         ),
                       ],
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 40),
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: 50,
@@ -131,11 +133,11 @@ class DetailsScreen extends StatelessWidget {
                           backgroundColor: Colors.black,
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        child: Text(
-                          'Buy Now',
+                        child: const Text(
+                          "Buy Now",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
